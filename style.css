@@ -1,5 +1,40 @@
-div {
-    width: 20rem;
-    height: 20rem;
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+.row, .btn-row {
+    display: flex;
+    flex-direction: row;
+}
+
+#calc-container {
     border-style: solid;
+    width: fit-content;
+    padding: 0.5rem;
+}
+
+#screen {
+    border-style: solid;
+    border-width: 2px;
+    text-align: right;
+}
+
+#solar-panel {
+    width: 60%;
+    border-style: solid;
+    border-width: 2px;
+}
+
+
+#funcpad{
+    margin-left: 1rem;
+}
+
+#numpad button {
+    width:1.7rem;
+    height:1.7rem;
+}
+
+#funcpad button{
 }
