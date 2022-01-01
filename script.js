@@ -1,1 +1,3 @@
-console.log("Hi");
+const shrinkRow = function onButtonClickShrinkButtonRow () {
+
+}
