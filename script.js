@@ -1,16 +1,36 @@
 // holds number input by user as seperate chars
 // adds pressed number to input1 or input2 according to calculator logic
-const processNumInput = (e) => {
+const processNumpadInput = (e) => {
 
-  let btnNum = e.currentTarget.textContent;
+  let btnValue = e.currentTarget.textContent;
+
+  if (input[curInput].length === 0 && (btnValue === '.' )){
+    return;
+  }
+
+  if (input[curInput].length === 1 && btnValue === '0') {
+    return;
+  }
+
+
+
+  
+
+  if (btnValue === '.') {
+    if (isFloat[curInput]) {
+      return;
+    } else {
+      isFloat[curInput] = true;
+    }
+  }
 
   if (input[curInput].length < screenNumLim) {
-    input[curInput].push(btnNum);
+    input[curInput].push(btnValue);
   }
 
   updateScreen();
 }
-const processFuncInput = (e) => {
+const processFuncpadInput = (e) => {
 
     operation = e.currentTarget.dataset['func'];
     // saves user input into second array now
@@ -24,6 +44,7 @@ const processFuncInput = (e) => {
     input[0].push(operations[operation](num1, num2));
     curInput = 0;
     input[1] = [];
+    isFloat[1] = false;
 
     updateScreen();
   }
@@ -62,6 +83,7 @@ let input = [[],[]]
 // tracks which in
 let curInput = 0;
 let operation = undefined;
+let isFloat = [false, false];
 
 // holds calculator's memory
 let calcMem = 0;
@@ -71,10 +93,10 @@ const screenNumLim = 8;
 const screen = document.querySelector('#screen')
 
 const numPad = document.querySelectorAll('.num-btn');
-numPad.forEach(numBtn => numBtn.addEventListener('click', processNumInput))
+numPad.forEach(numBtn => numBtn.addEventListener('click', processNumpadInput))
 
 const acBtn = document.querySelector("#ac")
 acBtn.addEventListener('click', clearAll);
 
 const funcPad = document.querySelectorAll('.func-btn');
-funcPad.forEach(funcBtn => funcBtn.addEventListener('click', processFuncInput));
+funcPad.forEach(funcBtn => funcBtn.addEventListener('click', processFuncpadInput));
