@@ -13,6 +13,16 @@
     flex-direction: row;
 }
 
+html, body {
+    height: 80vh;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #calc-container {
     width: fit-content;
     padding: 0.5rem;
