@@ -12,34 +12,23 @@ const processNumInput = (e) => {
 }
 const processFuncInput = (e) => {
 
-    operand = e.currentTarget.dataset['func'];
+    operation = e.currentTarget.dataset['func'];
+    // saves user input into second array now
 
-  switch (operand) {
-    case 'add':
-      break;
-    case 'sub':
-      break;
-    case 'div':
-      break;
-    case 'mult':
-      break;
-    case 'perc':
-      break;
-    case 'eq':
-      break;
-    case 'madd':
-      break;
-    case 'msub':
-      break;
-    case 'mrc':
-      break;
-    case 'ce':
-      eraseNum();
-      break;
-    default:
-      break;
+  if (curInput === 1 && input[1].length > 0) {
 
+    let num1 = parseFloat(input[0].join(''));
+    let num2 = parseFloat(input[1].join(''));
+
+    input[0] = [];
+    input[0].push(operations[operation](num1, num2));
+    curInput = 0;
+    input[1] = [];
+
+    updateScreen();
   }
+
+    curInput = 1;
 
 }
 const eraseNum = () => {
@@ -52,7 +41,7 @@ const updateScreen = () => {
 const clearAll = function onACPressResetEverything() {
     input = [[],[]]
     curInput = 0;
-    operand = "";
+    operation = "";
     calcMem = 0;
     updateScreen();
 }
@@ -60,11 +49,16 @@ const shrinkRow = function onButtonClickShrinkButtonRow () {
 
 }
 
+operations = {
+  'sum' : (num1, num2) => num1 + num2,
+  'sub' : (num1, num2) => num1 - num2,
+}
+
 let input = [[],[]]
 
 // tracks which in
 let curInput = 0;
-let operand = "";
+let operation = undefined;
 
 // holds calculator's memory
 let calcMem = 0;
