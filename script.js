@@ -52,6 +52,9 @@ const shrinkRow = function onButtonClickShrinkButtonRow () {
 operations = {
   'sum' : (num1, num2) => num1 + num2,
   'sub' : (num1, num2) => num1 - num2,
+  'div' : (num1, num2) => num1 / num2,
+  'mult' : (num1, num2) => num1 * num2,
+  'perc' : (num1, num2) => num1 * (num2/100),
 }
 
 let input = [[],[]]
@@ -64,7 +67,7 @@ let operation = undefined;
 let calcMem = 0;
 
 // limits how many numbers can be displayed on the screen
-const screenNumLim = 10;
+const screenNumLim = 8;
 const screen = document.querySelector('#screen')
 
 const numPad = document.querySelectorAll('.num-btn');
