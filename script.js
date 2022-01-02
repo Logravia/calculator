@@ -10,10 +10,45 @@ const processNumInput = (e) => {
 
   updateScreen();
 }
+const processFuncInput = (e) => {
+
+    operand = e.currentTarget.dataset['func'];
+
+  switch (operand) {
+    case 'add':
+      break;
+    case 'sub':
+      break;
+    case 'div':
+      break;
+    case 'mult':
+      break;
+    case 'perc':
+      break;
+    case 'eq':
+      break;
+    case 'madd':
+      break;
+    case 'msub':
+      break;
+    case 'mrc':
+      break;
+    case 'ce':
+      eraseNum();
+      break;
+    default:
+      break;
+
+  }
+
+}
+const eraseNum = () => {
+  input[curInput].pop();
+  updateScreen();
+}
 const updateScreen = () => {
   screen.textContent = input[curInput].join('');
 }
-const processFuncInput = (e) => {}
 const clearAll = function onACPressResetEverything() {
     input = [[],[]]
     curInput = 0;
@@ -43,3 +78,6 @@ numPad.forEach(numBtn => numBtn.addEventListener('click', processNumInput))
 
 const acBtn = document.querySelector("#ac")
 acBtn.addEventListener('click', clearAll);
+
+const funcPad = document.querySelectorAll('.func-btn');
+funcPad.forEach(funcBtn => funcBtn.addEventListener('click', processFuncInput));
