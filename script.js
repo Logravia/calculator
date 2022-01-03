@@ -1,5 +1,10 @@
 const processNumpadInput = (e) => {
 
+  // force user to restart calculator
+  if (isError) {
+    return;
+  }
+
   // when user has defined operation it means it's time to write into second register
   if (operation !== undefined) {
     curReg = 1;
@@ -35,6 +40,10 @@ const processNumpadInput = (e) => {
 }
 const processFuncpadInput = (e) => {
 
+    if (isError) {
+      return;
+    }
+
     operation = e.currentTarget.dataset['func'];
 
   // operate on inputs when switched to second register
@@ -43,17 +52,30 @@ const processFuncpadInput = (e) => {
     // make numbers to operate on
     let num1 = parseFloat(inputRegister[0].join(''));
     let num2 = parseFloat(inputRegister[1].join(''));
+    let result = undefined;
 
+    // prevent division by zero
     if (num2 === 0 && operation === 'div') {
-      // do something witty
+      result = "2spooky4me"
+      isError = true;
+    } else {
+      result = ops[operation](num1, num2);
     }
 
-    // push result to first register for it be displayed
+    // prevent displaying result that is too large
+    if (Math.abs(result) > 99999999) {
+      result = "2dum4dat"
+      isError = true;
+    }
+
     inputRegister[0] = [];
-    inputRegister[0].push(ops[operation](num1, num2));
+
+    // push result to first register for it be displayed
+    inputRegister[0].push(result)
 
     // reset for next operation
     inputRegister[1] = [0];
+
     isFloat[1] = false;
     operation = undefined;
     curReg = 0
@@ -62,6 +84,9 @@ const processFuncpadInput = (e) => {
   }
 }
 const clearEntry = () => {
+  if (isError) {
+    return;
+  }
   inputRegister[curReg] = [0];
   isFloat[curReg] = false;
   updateScreen();
@@ -76,6 +101,7 @@ const clearAll = function onACPressResetEverything() {
     operation = undefined;
     calcMem = 0;
     updateScreen();
+    isError = false;
 }
 const shrinkRow = function onButtonClickShrinkButtonRow () {
 
@@ -103,6 +129,9 @@ let inputRegister = [[0],[0]]
 let curReg = 0;
 let operation = undefined;
 let isFloat = [false, false];
+
+// When calculator must be reset - aesthetic
+let isError = false;
 
 // holds calculator's memory
 let calcMem = 0;
