@@ -44,7 +44,9 @@ const processFuncpadInput = (e) => {
       return;
     }
 
+  if (e.currentTarget.dataset["func"] != 'eq') {
     operation = e.currentTarget.dataset['func'];
+  }
 
   // operate on inputs when switched to second register
   if (curReg === 1) {
